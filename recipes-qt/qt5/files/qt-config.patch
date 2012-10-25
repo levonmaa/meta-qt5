@@ -1,0 +1,23 @@
+diff --git a/src/corelib/global/qlibraryinfo.cpp b/src/corelib/global/qlibraryinfo.cpp
+index ccf0718..3e421b4 100644
+--- a/src/corelib/global/qlibraryinfo.cpp
++++ b/src/corelib/global/qlibraryinfo.cpp
+@@ -48,6 +48,7 @@
+ #ifdef QT_BUILD_QMAKE
+ QT_BEGIN_NAMESPACE
+ extern QString qt_libraryInfoFile();
++#include <stdlib.h>
+ QT_END_NAMESPACE
+ #elif defined(QT_BOOTSTRAPPED)
+ QString qt_libraryInfoFile()
+@@ -142,6 +143,10 @@ QSettings *QLibraryInfoPrivate::findConfiguration()
+ #ifdef QT_BOOTSTRAPPED
+     if(!QFile::exists(qtconfig))
+         qtconfig = qt_libraryInfoFile();
++    if (!QFile::exists(qtconfig)) {
++        QByteArray config = getenv("QT_CONF_PATH");
++        qtconfig = QFile::decodeName(config);
++    }
+ #else
+     if (!QFile::exists(qtconfig) && QCoreApplication::instance()) {
+ #ifdef Q_OS_MAC
