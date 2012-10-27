@@ -6,7 +6,7 @@ require qt5_arch.inc
 
 
 
-QT_PLATFORMFLAGS ?= ""
+QT_CONFIG_FLAGS ?= ""
 
 EXTRA_OEMAKE = "-e"
 
@@ -20,23 +20,9 @@ do_configure() {
 
     set_endian
 
-#    unset QMAKESPEC
-#    unset QTDIR
-
     # Avoid problems with the linkers, since we want the linker to be g++
     unset LD
-#    unset CC
-#    unset CXX
-#    unset CFLAGS
-#    unset CXXFLAGS
-#    unset RANLIB
-#    unset OBJDUMP
-#    unset CCLD
-#    unset OE_QMAKE_UIC
-#    unset OE_QMAKE_MOC
-#    unset OE_QMAKE_RCC
-#    unset OE_QMAKE_QMAKE
-#
+
     mkdir -p mkspecs/${TARGET_OS}-oe-g++
     cp -f ${WORKDIR}/qplatformdefs.h mkspecs/${TARGET_OS}-oe-g++
     bash ${WORKDIR}/qmake.conf.sh > mkspecs/${TARGET_OS}-oe-g++/qmake.conf
@@ -68,47 +54,22 @@ do_configure() {
         -xplatform ${TARGET_OS}-oe-g++ \
         -nomake tests \
         -nomake examples \
-        ${QT_PLATFORMFLAGS} -no-fast
+        ${QT_CONFIG_FLAGS} -no-fast
 }
 
 do_compile() {
-#    unset QMAKESPEC
-#    unset QTDIR
-#    unset LD
-#    unset CC
-#    unset CXX
-#    unset CFLAGS
-#    unset CXXFLAGS
-#    unset RANLIB
-#    unset OBJDUMP
-#    unset CCLD
-
-#    oe_runmake
-#    oe_runmake CC="${CC}" CXX="${CXX}"
-
    unset CFLAGS CXXFLAGS
 
-   #oe_runmake ${EXTRA_ENV}
-
-   # Build target qmake
-
    export QMAKESPEC="${S}/mkspecs/${TARGET_OS}-oe-g++"
-   #cd ${S}/qmake
-
-   #${OE_QMAKE_QMAKE}
-
  
    oe_runmake CC="${CC}" CXX="${CXX}" AR="${TARGET_PREFIX}ar cqs"
-   cd ${S}
 }
 
 do_compile_prepend() {
-
     cp ${STAGING_BINDIR_NATIVE}/qmake ${S}/bin/qmake
-
 }
 
 
 do_install() {
-    #oe_runmake install INSTALL_ROOT=${D}
+    oe_runmake install INSTALL_ROOT=${D}
 }

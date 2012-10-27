@@ -11,6 +11,5 @@ SRC_URI = "git://qt.gitorious.org/qt/qtbase.git;protocol=git \
             file://qmake.conf.sh \
             file://qplatformdefs.h"
 
-
 S = "${WORKDIR}/git"
 #S = "${WORKDIR}/${QT_MODULE}-opensource-src-${QT_VERSION}"

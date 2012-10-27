@@ -20,7 +20,7 @@ QT_VERSION ?= "${PV}-beta1"
 
 SRCREV = "59009cfd0c0ac36bab5864c2a48dfc052ea29191"
 SRC_URI = "git://qt.gitorious.org/qt/qtbase.git;protocol=git \
-            file://qt-config.patch \
+            file://0001-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
             file://qmake.conf.sh \
             file://qplatformdefs.h"
 
@@ -36,6 +36,9 @@ INC_PR = "r0"
 inherit native
 
 QT_MODULE = "qtbase"
+
+QT_MAKE_TEST ?= "-nomake tests"
+QT_MAKE_EXAMPLES ?= "-nomake examples"
 
 EXTRA_OECONF = "-prefix ${prefix} \
                 -L ${STAGING_LIBDIR_NATIVE} \
@@ -59,8 +62,8 @@ EXTRA_OECONF = "-prefix ${prefix} \
                 -no-iconv \
                 -no-fast \
                 -silent \
-                -nomake examples \
-                -nomake tests \
+                ${QT_MAKE_TESTS} \
+                ${QT_MAKE_EXAMPLES} \
                 -no-rpath"
 
 do_configure() {
