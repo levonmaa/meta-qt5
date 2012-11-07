@@ -1,9 +1,3 @@
-#QMAKE_MKSPEC_PATH ?= "${STAGING_DATADIR_NATIVE}/qmake"
-
-QMAKE_MKSPEC_PATH ?= "${STAGING_DATADIR_NATIVE}/qt5/mkspecs"
-
-OE_QMAKE_PLATFORM = "${TARGET_OS}-oe-g++"
-QMAKESPEC := "${QMAKE_MKSPEC_PATH}/${OE_QMAKE_PLATFORM}"
 
 # We override this completely to eliminate the -e normally passed in
 EXTRA_OEMAKE = ' MAKEFLAGS= '
@@ -12,7 +6,7 @@ export OE_QMAKE_CC="${CC}"
 export OE_QMAKE_CFLAGS="${CFLAGS}"
 export OE_QMAKE_CXX="${CXX}"
 export OE_QMAKE_LDFLAGS="${LDFLAGS}"
-export OE_QMAKE_AR="${AR}"
+export OE_QMAKE_AR="${AR} cqs"
 export OE_QMAKE_STRIP="echo"
 export OE_QMAKE_RPATH="-Wl,-rpath-link,"
 
@@ -28,6 +22,8 @@ Binaries = ${STAGING_BINDIR_NATIVE}
 Headers = ${STAGING_INCDIR}/qt5
 Plugins = ${STAGING_LIBDIR}/qt5/plugins/
 Mkspecs = ${STAGING_DATADIR}/qt5/mkspecs/
+HostData = ${STAGING_DATADIR_NATIVE}/qt5
+HostBinaries = ${STAGING_BINDIR_NATIVE}/
 EOF
 }
 

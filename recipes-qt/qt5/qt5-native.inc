@@ -76,8 +76,11 @@ do_configure() {
 
 do_install() {
     install -d ${D}${bindir}/
-    # Install only the qmake bin for now.
+    # Install only the needed binaries...
     install -m 0755 ${S}/bin/qmake ${D}${bindir}/qmake
+    install -m 0755 ${S}/bin/syncqt ${D}${bindir}/syncqt
+    install -m 0755 ${S}/bin/rcc ${D}${bindir}/rcc
+
     install -d ${D}${datadir}/qt5/
     cp -PfR mkspecs ${D}${datadir}/qt5/
     cp -f ${WORKDIR}/g++.conf ${D}${datadir}/qt5/mkspecs/common/g++-unix.conf
