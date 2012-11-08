@@ -20,11 +20,13 @@ QT_VERSION ?= "${PV}-beta1"
 
 SRCREV = "59009cfd0c0ac36bab5864c2a48dfc052ea29191"
 SRC_URI = "git://qt.gitorious.org/qt/qtbase.git;protocol=git \
-            file://0001-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
+            file://0001-Allowing-the-customization-of-the-paths.patch \
             file://qmake.conf.sh \
             file://qplatformdefs.h \
             file://linux.conf \
             file://g++.conf"
+
+#file://0001-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
 
 
 
@@ -80,6 +82,7 @@ do_install() {
     install -m 0755 ${S}/bin/qmake ${D}${bindir}/qmake
     install -m 0755 ${S}/bin/syncqt ${D}${bindir}/syncqt
     install -m 0755 ${S}/bin/rcc ${D}${bindir}/rcc
+    install -m 0755 ${S}/bin/rcc ${D}${bindir}/moc
 
     install -d ${D}${datadir}/qt5/
     cp -PfR mkspecs ${D}${datadir}/qt5/
