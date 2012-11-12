@@ -82,7 +82,7 @@ do_install() {
     install -m 0755 ${S}/bin/qmake ${D}${bindir}/qmake
     install -m 0755 ${S}/bin/syncqt ${D}${bindir}/syncqt
     install -m 0755 ${S}/bin/rcc ${D}${bindir}/rcc
-    install -m 0755 ${S}/bin/rcc ${D}${bindir}/moc
+    install -m 0755 ${S}/bin/moc ${D}${bindir}/moc
 
     install -d ${D}${datadir}/qt5/
     cp -PfR mkspecs ${D}${datadir}/qt5/
