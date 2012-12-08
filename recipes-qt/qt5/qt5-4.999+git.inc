@@ -11,8 +11,6 @@ S = "${WORKDIR}/git"
 
 PV = "4.999+5.0.0-beta2+gitr${SRCPV}"
 
-DEFAULT_PREFERENCE = "-1"
-
 LICENSE = "GFDL-1.3 & LGPLv2.1 | GPLv3"
 LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=02356821480f1d3d534b21e0343265b5 \
                     file://LICENSE.GPL;md5=d32239bcb673463ab874e80d47fae504 \

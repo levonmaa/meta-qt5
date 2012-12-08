@@ -11,21 +11,31 @@ SRC_URI += " \
     file://module_qmake.conf \
     "
 
-# Bitbake will not respect the make order set by qmake and at times it will try to compile
-# parts of the source tree with out the 'mkv8snapshot' tool if it is enabled and that will fail
-#PARALLEL_MAKE = ""
-
 export QT_CONF_PATH="${WORKDIR}/qt.conf"
 
 do_configure () {
     # Avoid setting QMAKE_LINK from LD (since we want the linker to be g++)
     unset LD
 
+    export QT_CONF_PATH=${WORKDIR}/qt.conf
+    cat > ${WORKDIR}/qt.conf <<EOF
+[Paths]
+Binaries = ${bindir}
+Headers = ${STAGING_INCDIR}/qt5
+Plugins = ${libdir}/qt5/plugins
+Libraries = ${libdir}
+Documentation=${docdir}/qt5
+Data = ${datadir}/qt5
+HostData = ${STAGING_DATADIR}/qt5
+HostBinaries = ${STAGING_BINDIR_NATIVE}
+EOF
+
+
     # This should not be needed. Perhaps the lack of this file is an indication
     # of an error on the native recipe...
     cp ${WORKDIR}/module_qmake.conf ${S}/.qmake.conf
 
-    ${OE_QMAKE_QMAKE} -d
+    ${OE_QMAKE_QMAKE} -r -d
 }
 
 do_install() {
